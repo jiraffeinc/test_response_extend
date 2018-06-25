@@ -22,7 +22,14 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+example.
+
+```ruby
+test "json api" do
+  get user_path(user.find(1))
+  assert_equal 1, response.json[:user][:id]
+end
+```
 
 ## Development
 
