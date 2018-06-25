@@ -17,7 +17,7 @@ class TestResponseExtendTest < Minitest::Test
 
   class JsonTextResponse < MockResponseBase
     def body
-      {integer: 1, hash: {array: [1, 2], hash: {boolean: false}}}.to_json
+      {integer: 1, hash: {array: [1, {"hash" => 2}], hash: {boolean: false}}}.to_json
     end
   end
 
@@ -29,6 +29,7 @@ class TestResponseExtendTest < Minitest::Test
     json = ActionDispatch::TestResponse.from_response(JsonTextResponse.new).json
     assert_equal 1, json[:hash][:array].first
     assert_equal false, json["hash"]["hash"][:boolean]
+    assert_equal 2, json[:hash]["array"].last[:hash]
   end
 
   def test_response_json_as_blank
