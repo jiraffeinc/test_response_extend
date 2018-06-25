@@ -12,7 +12,11 @@ end
 
 ActionDispatch::TestResponse.module_eval do
   def json
-    indifferent_access(JSON.parse(body))
+    if body.blank?
+      nil
+    else
+      indifferent_access(JSON.parse(body))
+    end
   end
 
   private
